@@ -1,25 +1,42 @@
 \documentclass[UTF8,fontset=fandol,zihao=-4]{ctexart}
 \usepackage[a4paper,margin=22mm]{geometry}
-\usepackage{amsmath,amssymb,booktabs,longtable,array,graphicx,enumitem}
+\usepackage{amsmath,amssymb,booktabs,longtable,array,graphicx,enumitem,xcolor}
 \usepackage[hidelinks]{hyperref}
+\definecolor{sourcegray}{gray}{0.32}
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{0.5em}
+\setlength{\parskip}{0.35em}
 \setlist{nosep}
 \emergencystretch=2em
+\pagestyle{plain}
+\ctexset{section={format=\large\bfseries\raggedright,beforeskip=1.2ex,afterskip=.6ex}}
+\newcommand{\sourceref}[1]{{\small\color{sourcegray}[#1]}}
+\makeatletter
+\renewcommand{\maketitle}{%
+  \begin{center}
+    {\LARGE\bfseries\@title\par}
+    \vspace{0.6em}{\normalsize\@author\par}
+  \end{center}\vspace{0.5em}
+}
+\makeatother
 \title{期末复习材料}
-\author{课程名称}
+\author{课程名称 · 范围与版本}
 \date{}
 \begin{document}
 \maketitle
 % 复制到成果 source/ 后修改标题与正文，不要修改安装目录模板。
-% 长总结可加入 \tableofcontents 和 \newpage。
+% 长总结可加入 \tableofcontents；题面和答案使用独立文件。
 \section{使用说明}
-本文是中文与公式排版模板，请替换为基于本次资料核验后的内容。
-\section{公式与来源示例}
+本模板演示可读中文、数学公式与来源标注。请替换为基于本次资料核验后的内容。
+
+\section{结论、条件与来源}
 对二阶方阵有
 \[
 A=\begin{pmatrix}a&b\\c&d\end{pmatrix},
 \qquad \det(A)=ad-bc.
 \]
-来源格式示例：[S001，章节“行列式”]。标签应替换为本次真实定位。
+当 $\det(A)\ne0$ 时，$A$ 可逆。
+\sourceref{示例来源标签，应替换为本次实际文件与定位}
+
+\section{方法、自测与反馈}
+按课程资料补充识别条件、解题步骤和完整例题。将自测答案集中放在章节末尾，给学生先尝试的空间。
 \end{document}
