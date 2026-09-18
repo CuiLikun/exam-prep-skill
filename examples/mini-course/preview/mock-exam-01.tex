@@ -1,0 +1,36 @@
+\documentclass[UTF8,fontset=fandol,zihao=-4]{ctexart}
+\usepackage[a4paper,margin=22mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs,enumitem}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.35em}
+\setlist{nosep}
+\emergencystretch=2em
+\pagestyle{plain}
+\ctexset{section={format=\large\bfseries\raggedright,beforeskip=1.2ex,afterskip=.6ex}}
+\author{原创微型课程 · 格式示例}
+\date{}
+\title{线性代数模拟卷}
+\begin{document}
+\begin{center}{\LARGE\bfseries 线性代数模拟卷\par}\vspace{0.6em}原创微型课程 · 格式示例\end{center}
+\vspace{0.5em}
+\textbf{时间：}25 分钟。\quad \textbf{总分：}20 分。\quad \textbf{规则：}闭卷，无计算器。\\
+本卷为原创练习，范围限于微型课程资料。请写出必要推导。
+\section*{第 1 题（10 分）}
+设 $A_t=\begin{pmatrix}1&2\\2&t\end{pmatrix}$，先取 $b=(3,6)^{\mathsf T}$。
+\begin{enumerate}[label=(\arabic*)]
+\item 求 $\det(A_t)$，判断何时可逆。（2 分）
+\item 当 $t\ne4$ 时求 $A_t x=b$ 的解。（3 分）
+\item 当 $t=4$ 时给出全部解。（3 分）
+\item 当 $t=4$ 且将右端改为 $(3,7)^{\mathsf T}$ 时，判断是否有解并说明理由。（2 分）
+\end{enumerate}
+\vfill\newpage
+\section*{第 2 题（10 分）}
+设 $B=\begin{pmatrix}2&1\\1&2\end{pmatrix}$，$v=(4,2)^{\mathsf T}$。
+\begin{enumerate}[label=(\arabic*)]
+\item 求 $B$ 的全部特征值及相应的一个非零特征向量。（3 分）
+\item 将 $v$ 写成上述两个特征向量的线性组合。（3 分）
+\item 求 $B^n v$ 的表达式，$n$ 为非负整数，并用 $n=1$ 检验。（4 分）
+\end{enumerate}
+\vspace*{8cm}
+\end{document}

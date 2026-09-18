@@ -1,0 +1,51 @@
+\documentclass[UTF8,fontset=fandol,zihao=-4]{ctexart}
+\usepackage[a4paper,margin=22mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs,enumitem}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.35em}
+\setlist{nosep}
+\emergencystretch=2em
+\pagestyle{plain}
+\ctexset{section={format=\large\bfseries\raggedright,beforeskip=1.2ex,afterskip=.6ex}}
+\author{原创微型课程 · 格式示例}
+\date{}
+\title{线性代数知识总结}
+\begin{document}
+\begin{center}{\LARGE\bfseries 线性代数知识总结\par}\vspace{0.6em}原创微型课程 · 格式示例\end{center}
+\vspace{0.5em}
+\textbf{范围：}二阶行列式、二元线性方程组、特征值与特征向量。样例不包含二次型；两份历史样卷均为虚构资料，不能预测真实考试。
+
+\section{知识关系与重点}
+先判断行列式，再处理方程组；特征向量满足非零条件，可用于计算矩阵幂。方程组与特征值在两份可评估样卷中均出现（2/2），这是微型样本计数，不能视为必考概率。[S002、S003，第 1--2 题]
+
+\section{行列式与方程组}
+对 $A=\begin{pmatrix}a&b\\c&d\end{pmatrix}$，
+\[
+\det(A)=ad-bc,\qquad
+A^{-1}=\frac{1}{ad-bc}\begin{pmatrix}d&-b\\-c&a\end{pmatrix}
+\quad(ad-bc\ne0).
+\]
+不可逆不等于无解：须比较系数矩阵与增广矩阵的秩。两者不等则无解；相等且小于未知数个数则有无穷多解。[S001，第 1--2 节]
+
+\textbf{推导例题：}
+$A=\begin{pmatrix}2&1\\1&1\end{pmatrix}$、$b=(3,2)^{\mathsf T}$。
+$\det(A)=1$，$A^{-1}=\begin{pmatrix}1&-1\\-1&2\end{pmatrix}$，
+故 $x=(1,1)^{\mathsf T}$。代入两式分别得 $3$ 与 $2$，核验成立。
+
+\section{特征值与矩阵幂}
+$Av=\lambda v$ 中必须有 $v\ne0$。先解 $\det(A-\lambda I)=0$，再求每个特征空间。零可以是特征值，但零向量不是特征向量。[S001，第 3 节]
+
+若 $v=\alpha u_1+\beta u_2$ 且 $Au_i=\lambda_i u_i$，则
+\[
+A^n v=\alpha\lambda_1^n u_1+\beta\lambda_2^n u_2,\quad n\ge0.
+\]
+此式要求给定向量具有上述分解，不能据此声称所有矩阵都可对角化。[S001，第 3 节]
+
+\section{自测与来源}
+自测：行列式为零为何可能仍有解？怎样用代入检查参数解？计算矩阵幂前应确认什么？
+
+S001：01-course-notes.md，第 1--3 节。\\
+S002：02-past-exam-2024.md，第 1--2 题。\\
+S003：03-past-exam-2025.md，第 1--2 题。
+\end{document}

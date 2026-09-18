@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "input_root": "../materials",
+  "sources": [
+    {
+      "id": "S001",
+      "path": "01-course-notes.md",
+      "sha256": "3fd479621f54d37fd373ef35cba82f07c0f9205bd1b4c8bd123803fda2f45420",
+      "kind": "text",
+      "status": "extracted",
+      "coverage": "all sections",
+      "locator": "section/question",
+      "issues": [],
+      "duplicate_of": null
+    },
+    {
+      "id": "S002",
+      "path": "02-past-exam-2024.md",
+      "sha256": "b52cbb64ac13365e72a66448d33be69b8870e5623fab629dbd4e0675e30fcf7c",
+      "kind": "text",
+      "status": "extracted",
+      "coverage": "all sections",
+      "locator": "section/question",
+      "issues": [],
+      "duplicate_of": null
+    },
+    {
+      "id": "S003",
+      "path": "03-past-exam-2025.md",
+      "sha256": "d840d7324b40301f48d62a38134d60b15eb64e16befd3a2d438e9e95eacc894c",
+      "kind": "text",
+      "status": "extracted",
+      "coverage": "all sections",
+      "locator": "section/question",
+      "issues": [],
+      "duplicate_of": null
+    }
+  ],
+  "skipped": [],
+  "scan_errors": []
+}

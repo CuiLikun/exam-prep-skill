@@ -1,0 +1,4 @@
+interface:
+  display_name: "期末复习助手"
+  short_description: "根据课程资料和历年试卷，生成可追溯的知识总结、模拟卷与答案 PDF"
+  default_prompt: "使用 $exam-prep 读取我的课程资料和往年试卷，生成知识总结 PDF、一套模拟卷及单独的答案解析。"
