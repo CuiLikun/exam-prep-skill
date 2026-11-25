@@ -49,7 +49,7 @@ MOCK_COUNT: 1
 python <技能目录>/scripts/inventory.py <资料目录> --output <成果目录>/sources.json
 ```
 
-脚本只清点文件、哈希和重复候选，不解析内容；pending 不能被解释为已读。没有 Python 时手动建立同等清单。
+脚本清点文件、哈希和重复候选，`pending` 表示尚待阅读。继续同一课程时，可加 `--reuse-from <上次的 sources.json>` 写到新成果目录，沿用未变化文件的阅读记录。复查 partial 的未读部分，并更新受材料增删或改动影响的统计与题目。没有 Python 时手动建立同等清单。
 
 在 `sources.json` 记录 ID、相对路径、类别、解析状态、实际已读范围、定位方式、问题与重复关系。每个重要结论的证据链应能回到“来源 ID → 文件 → 页 / 节 / 题号”。
 

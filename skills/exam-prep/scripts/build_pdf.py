@@ -38,6 +38,10 @@ def build(source, output, overwrite=False, timeout=120):
                 transcript.append(f"--- Pass {run} ---\n{completed.stdout}")
                 if completed.returncode:
                     raise RuntimeError(f"XeLaTeX failed on pass {run}; see {log_path}")
+            final_log = (temp_path / "document.log").read_text(encoding="utf-8", errors="replace")
+            for line in final_log.splitlines():
+                if line.startswith("Missing character:"):
+                    raise RuntimeError(f"{line} Choose a font containing the glyph or edit the source; see {log_path}")
             produced = temp_path / "document.pdf"
             if not produced.is_file() or not produced.read_bytes().startswith(b"%PDF-"):
                 raise RuntimeError(f"No valid PDF was produced; see {log_path}")

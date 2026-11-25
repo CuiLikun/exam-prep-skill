@@ -200,6 +200,12 @@ exam-prep-output/<课程名>-<时间>/
 python skills/exam-prep/scripts/inventory.py examples/mini-course/materials --output exam-prep-output/sources.json
 ```
 
+补充资料后，可接续同一资料目录上次的阅读进度。把新清单写到另一位置，上次标为 `extracted` 或 `partial` 且路径、内容均未变化的原件会保留状态、已读范围、定位和问题记录。新增或修改的可读原件从 `pending` 开始，副本关系按本次扫描重新计算。
+
+```bash
+python skills/exam-prep/scripts/inventory.py examples/mini-course/materials --reuse-from exam-prep-output/sources.json --output exam-prep-output/round-2/sources.json
+```
+
 编译已编写的 TeX（需要 XeLaTeX）：
 
 ```bash
@@ -306,3 +312,8 @@ docs/visual-assets.md  插图生成提示词与视觉素材说明
 文档呈现与可调参数的组织方式受到 [Taste Skill](https://github.com/Leonxlnx/taste-skill) 启发。本项目的课程复习规则、文字与封面均独立创作，与参考项目无隶属关系。[视觉素材与生成提示词](docs/visual-assets.md)。
 
 [MIT License](LICENSE) · 代码、技能说明与原创样例适用此许可；用户提供的教材、课件和试卷不在许可范围内。
+
+## Contributors
+
+- [CuiLikun](https://github.com/CuiLikun) 创建并维护本项目。
+- OpenAI Codex 参与微型课程试用、资料清单续读、PDF 缺字检查及回归测试。

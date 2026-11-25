@@ -18,6 +18,8 @@ python <技能目录>/scripts/build_pdf.py <成果目录>/source/knowledge-summa
 
 脚本两轮编译，关闭 shell escape，中间文件放临时目录；成功输出 PDF 与 `.build.log`，失败返回非零码并保留日志。默认拒绝覆盖，使用 `--overwrite` 可更新本次成果。
 
+若最后一轮日志报告 `Missing character`，脚本会列出首个缺字并保留旧 PDF。根据日志调整字体或符号后重编，再核对最终页面。
+
 只编译本次生成并检查过的 TeX。关闭 shell escape 不等于任意 TeX 安全，不直接编译资料内未知脚本。相对图片路径以源文件目录为基准。
 
 路径、下划线、百分号、井号和花括号须按正文语境转义，数学表达式保留数学语法。使用短来源 ID，避免长路径撑破版面。

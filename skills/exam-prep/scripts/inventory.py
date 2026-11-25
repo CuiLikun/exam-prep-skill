@@ -112,17 +112,62 @@ def collect(root, excluded=(), output=None):
     }
 
 
+def reuse_progress(result, previous_path):
+    """Reuse reading annotations only. The current scan owns identity and duplicates."""
+    with previous_path.open(encoding="utf-8-sig") as stream:
+        previous = json.load(stream)
+    if not isinstance(previous, dict) or previous.get("schema_version") != 1:
+        raise ValueError("Expected a version 1 source manifest.")
+    old_root = previous.get("input_root")
+    if not isinstance(old_root, str) or not old_root:
+        raise ValueError("Previous manifest is missing its input directory.")
+    if (previous_path.parent / old_root).resolve() != Path(result["input_root"]):
+        raise ValueError("Previous manifest belongs to a different input directory.")
+    rows = previous.get("sources")
+    if not isinstance(rows, list) or not all(isinstance(row, dict) and isinstance(row.get("path"), str) for row in rows):
+        raise ValueError("Invalid sources in previous manifest.")
+    by_path = {row["path"]: row for row in rows}
+    if len(by_path) != len(rows):
+        raise ValueError("Previous manifest has repeated source paths.")
+    reviewed = {}
+    for row in result["sources"]:
+        old = by_path.get(row["path"])
+        if (not old or row["status"] != "pending" or old.get("duplicate_of")
+                or old.get("sha256") != row["sha256"]
+                or old.get("status") not in ("extracted", "partial")):
+            continue
+        reviewed[row["sha256"]] = row["id"]
+        for field in ("status", "coverage", "locator", "issues"):
+            if field in old:
+                row[field] = old[field]
+
+    # An alphabetically earlier new copy must not displace an already-read original.
+    for row in result["sources"]:
+        original = reviewed.get(row["sha256"])
+        if original:
+            row["duplicate_of"] = None if original == row["id"] else original
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("input", type=Path)
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--exclude", action="append", default=[], help="Relative file/directory to exclude; repeatable")
     parser.add_argument("--overwrite", action="store_true")
+    parser.add_argument("--reuse-from", type=Path, help="Carry reading progress from a prior manifest into a separate output")
     args = parser.parse_args()
     try:
         if args.output.exists() and not args.overwrite:
             raise ValueError("Output exists; choose a new path or pass --overwrite.")
+        if args.reuse_from:
+            previous = args.reuse_from.expanduser().resolve(strict=True)
+            if previous == args.output.resolve() or (args.output.exists() and previous.samefile(args.output)):
+                raise ValueError("Choose a separate output to preserve the previous manifest.")
+            if previous.is_relative_to(args.input.expanduser().resolve()):
+                args.exclude.append(previous)
         result = collect(args.input, args.exclude, args.output)
+        if args.reuse_from:
+            reuse_progress(result, previous)
         args.output.parent.mkdir(parents=True, exist_ok=True)
         with args.output.open("w" if args.overwrite else "x", encoding="utf-8") as stream:
             json.dump(result, stream, ensure_ascii=False, indent=2)
