@@ -4,8 +4,7 @@
 
 <h1 align="center">Exam Prep · 期末复习助手</h1>
 
-<p align="center"><strong>让一学期的资料，成为考前真正用得上的三份文档。</strong></p>
-<p align="center">课程资料与往年试卷 → 知识总结 · 模拟试卷 · 答案解析</p>
+<p align="center">用 Codex 或 Claude Code 把课程资料整理成可打印的知识总结、模拟试卷和独立答案解析。</p>
 
 <p align="center">
   <a href="https://github.com/CuiLikun/exam-prep-skill/actions/workflows/validate.yml"><img src="https://github.com/CuiLikun/exam-prep-skill/actions/workflows/validate.yml/badge.svg" alt="辅助脚本自动检查" /></a>
@@ -15,87 +14,45 @@
 </p>
 
 <p align="center">
-  <a href="#outputs">看看成品</a> ·
-  <a href="#quick-start">开始使用</a> ·
-  <a href="#study-modes">复习模式</a> ·
-  <a href="#workflow">如何工作</a> ·
-  <a href="#quality">质量标准</a> ·
+  <a href="#quick-start">安装与试用</a> ·
+  <a href="#outputs">查看成品</a> ·
+  <a href="#study-modes">选择复习模式</a> ·
+  <a href="#formats">资料格式</a> ·
   <a href="#faq">常见问题</a>
 </p>
 
----
-
-课件散在不同文件夹，笔记夹着照片，往年卷有扫描版也有答案版。开始复习之前，你往往还得先回答：**范围是什么，重点在哪里，怎样才算会了？**
-
-Exam Prep 为这个过程提供一套可重复执行的流程：清点资料、回查来源、梳理知识、分析真题，再把练习和讲解排成可打印的 PDF。你给出材料和目标，Codex 或 Claude Code 使用它们已有的工具完成制作。
-
-> **适合谁？** 有课程材料、希望系统整理与自测的大学生。支持理工、编程与人文社科课程；具体解析能力取决于宿主工具。项目是 Agent Skill，不是独立运行的学习软件。
-
-<a id="outputs"></a>
-
-## 先看看，你会拿到什么
-
-<table>
-  <tr>
-    <td width="33%" valign="top">
-      <strong>01 · 知识总结</strong><br />
-      <sub>建立结构，找到条件与方法。</sub><br /><br />
-      <a href="examples/mini-course/preview/knowledge-summary.pdf"><img src="assets/readme/summary-preview.png" alt="真实样例 PDF：知识总结，含公式条件、完整例题和来源" width="100%" /></a>
-    </td>
-    <td width="33%" valign="top">
-      <strong>02 · 模拟试卷</strong><br />
-      <sub>留出时间，独立完成一次检验。</sub><br /><br />
-      <a href="examples/mini-course/preview/mock-exam-01.pdf"><img src="assets/readme/exam-preview.png" alt="真实样例 PDF：模拟试卷第一页，含题目、分值与作答空间" width="100%" /></a>
-    </td>
-    <td width="33%" valign="top">
-      <strong>03 · 答案解析</strong><br />
-      <sub>看懂过程，知道分数落在哪里。</sub><br /><br />
-      <a href="examples/mini-course/preview/mock-exam-01-answers.pdf"><img src="assets/readme/answers-preview.png" alt="真实样例 PDF：独立答案，含推导、评分点与易错提醒" width="100%" /></a>
-    </td>
-  </tr>
-</table>
-
-<p align="center"><sub>点击页面查看完整 PDF。以上是仓库内原创微型线性代数样例的实际渲染；封面插图为 AI 生成的概念视觉。</sub></p>
-
-| 文档 | 为复习解决的问题 | 内容约定 |
-| --- | --- | --- |
-| **知识总结** | 这一章究竟要掌握什么？ | 知识关系、关键条件、解题步骤、典型错误、自测与来源 |
-| **模拟试卷** | 换个问法，我还能做出来吗？ | 明确范围、题型与分值，提供新题和作答空间 |
-| **答案解析** | 为什么这样做，哪里可以得分？ | 完整推导、分步评分、合理替代解法和错误诊断 |
-
-另附资料清单、真题分析和可编辑源文件，方便检查与修改。样例用于展示结构与排版，未对所有课程、模型或文件格式完成端到端验证。
-
-[查看原始样例材料](examples/mini-course/materials/) · [查看考点分析](examples/mini-course/preview/exam-analysis.md) · [跑一次完整示例](examples/mini-course/request.md)
-
 <a id="quick-start"></a>
 
-## 开始使用
+## 安装与试用
 
-**环境：** 能访问文件并执行命令的 Codex 或 Claude Code；Python 3.10+ 用于辅助脚本。生成 PDF 推荐 XeLaTeX（CTeX + Fandol 字体），也可使用环境中其他可靠的导出工具。
+### 1. 在终端安装技能
 
-**1. 获取项目，安装技能**
+准备好能读取本地文件的 Codex 或 Claude Code。下面的安装命令需要 Git 和 Python 3.10 或更高版本。生成 PDF 时，推荐使用带 CTeX 和 Fandol 字体的 XeLaTeX，也可以使用助手环境中已有的其他 PDF 导出工具。
 
 ```bash
 git clone https://github.com/CuiLikun/exam-prep-skill.git
 cd exam-prep-skill
-python scripts/install.py --tool both
+python scripts/install.py --tool codex
 ```
 
-仅使用一个工具时，将 `both` 改为 `codex` 或 `claude`。安装器只复制技能文件；遇到同名目录会停止，保护你已有的修改。
+使用 Claude Code 时，把最后一行的 `codex` 换成 `claude`。两种工具都用时，换成 `both`。
 
-**2. 把资料放在一个目录里**
+### 2. 在助手对话中试跑示例
+
+安装后，在仓库根目录打开一个新的 Codex 会话，发送下方请求。使用 Claude Code 时，将第一行换成 `/exam-prep`。仓库已附课程笔记和两份虚构样卷，可以直接试用。
 
 ```text
-materials/线性代数/
-├── 教学大纲.pdf
-├── 课件/
-├── 笔记/
-└── 往年试卷/
+$exam-prep
+请读取 examples/mini-course/materials，以课程笔记为考试范围。
+参考两份样卷的形式，出一套 20 分、25 分钟的新题。
+把知识总结、模拟卷和独立答案解析导出为 PDF，保存到 exam-prep-output/demo。
 ```
 
-不要求按此结构重命名。子目录、混合格式和重复副本都可以先保留。
+完成后，在 `exam-prep-output/demo/` 打开 `mock-exam-01.pdf` 作答，再用 `mock-exam-01-answers.pdf` 核分。[示例材料](examples/mini-course/materials/) · [完整请求与核对要点](examples/mini-course/request.md)
 
-**3. 告诉助手这次怎样复习**
+### 3. 换成自己的课程资料
+
+把大纲、课件、笔记和已有的往年卷放在助手能读取的目录里，保留原有文件名和子目录即可。把下方请求中的路径换成你的资料目录，再按实际情况调整考试范围、时长和薄弱章节。
 
 ```text
 $exam-prep
@@ -108,7 +65,7 @@ $exam-prep
 输出到 ./exam-prep-output/线性代数。
 ```
 
-Claude Code 将第一行改为 `/exam-prep`。参数不齐时可以先省略，助手会从资料寻找依据，并注明仍需采用的假设。
+没给出分值或时长时，助手会先查课程材料和有效样卷，并在考点分析中注明仍需采用的练习设定。
 
 <details>
 <summary><strong>安装路径、旧版 Codex 与更新方式</strong></summary>
@@ -130,17 +87,47 @@ python scripts/install.py --tool codex --dest "~/.codex/skills"
 
 </details>
 
+<a id="outputs"></a>
+
+## 查看成品
+
+<table>
+  <tr>
+    <td width="33%" valign="top">
+      <strong>知识总结</strong><br />
+      <sub>公式条件、例题、自测与来源</sub><br /><br />
+      <a href="examples/mini-course/preview/knowledge-summary.pdf"><img src="assets/readme/summary-preview.png" alt="真实样例 PDF：知识总结，含公式条件、完整例题和来源" width="100%" /></a>
+    </td>
+    <td width="33%" valign="top">
+      <strong>模拟试卷</strong><br />
+      <sub>题目、分值与作答空间</sub><br /><br />
+      <a href="examples/mini-course/preview/mock-exam-01.pdf"><img src="assets/readme/exam-preview.png" alt="真实样例 PDF：模拟试卷第一页，含题目、分值与作答空间" width="100%" /></a>
+    </td>
+    <td width="33%" valign="top">
+      <strong>答案解析</strong><br />
+      <sub>推导过程、分步评分与易错点</sub><br /><br />
+      <a href="examples/mini-course/preview/mock-exam-01-answers.pdf"><img src="assets/readme/answers-preview.png" alt="真实样例 PDF：独立答案，含推导、评分点与易错提醒" width="100%" /></a>
+    </td>
+  </tr>
+</table>
+
+<p align="center"><sub>点击页面查看完整 PDF。以上是仓库内原创微型线性代数样例的实际渲染；封面插图为 AI 生成的概念视觉。</sub></p>
+
+输出目录还包含可编辑源文件（`source/`）、资料清单（`sources.json`）和考点分析（`exam-analysis.md`）。想知道一个考点为什么入选，可以从分析中的来源编号回查原卷和题号。[查看示例考点分析](examples/mini-course/preview/exam-analysis.md)
+
 <a id="study-modes"></a>
 
-## 按你的复习节奏来
+## 选择复习模式
 
-同一门课，补基础、考前回顾与限时练习需要不同的内容密度。直接用自然语言描述目标，或使用下表参数；它们是助手的执行偏好，不是 CLI 参数。
+在对话里说“我想系统复习”或“给我一套限时练习”即可。默认采用系统复习，也可以只要其中一种成果。
 
 | 模式 | 适合此刻的你 | 总结与练习的侧重点 |
 | --- | --- | --- |
 | **系统复习** `balanced` | 想把课程完整串起来 | 章节依赖 → 概念与条件 → 方法与例题 → 综合自测 |
 | **考前速记** `sprint` | 基础已学过，需要快速回顾 | 速查表、适用条件、容易混淆的点；保留范围缺口说明 |
 | **限时自测** `practice` | 希望用一套卷检查掌握程度 | 标准题面、充足作答空间、分离的解析与错因分类 |
+
+需要精确指定讲解深度、难度或套数时，可把下面几行加到请求里。示例列出默认值。
 
 ```yaml
 STUDY_MODE: balanced          # balanced | sprint | practice
@@ -149,7 +136,7 @@ EXAM_DIFFICULTY: aligned      # aligned | foundation | challenge
 MOCK_COUNT: 1
 ```
 
-`aligned` 优先参考有效真题；资料不足时明确采用练习设定。`challenge` 增加推理与迁移要求，仍遵守考试范围。任何模式都保留来源、公式条件和答案核验；默认交付三类 PDF，用户也可只要求其中一类。
+`aligned` 优先参考有效真题；资料不足时明确采用练习设定。`challenge` 增加推理与迁移要求，仍遵守考试范围。所有模式都保留来源、公式条件和答案核验。
 
 <details>
 <summary><strong>三个可以直接套用的请求</strong></summary>
@@ -168,9 +155,23 @@ MOCK_COUNT: 1
 
 </details>
 
+<a id="formats"></a>
+
+## 支持的资料格式
+
+| 材料 | 处理方式 | 依赖或注意事项 |
+| --- | --- | --- |
+| PDF、扫描卷、照片、手写笔记 | 文字提取、视觉识别或 OCR | 公式、负号、上下标和图表须核对 |
+| Word、PPT、Excel | 结构解析，必要时转换副本 | 兼顾备注、嵌入图、公式和单元格 |
+| Markdown、TXT、HTML、CSV、代码 | 按编码和结构读取 | 保留章节、行号与表格语义 |
+| 音频、视频 | 转录并关联时间戳、画面 | 需要环境中可用的转录与视频工具 |
+| 压缩包、EPUB、未知格式 | 检查、分类，选择可用解析器 | 加密、损坏或不支持时列入未读清单 |
+
+可以接收混合格式；每种格式是否能可靠解析，取决于宿主能力。安装技能不会安装所有解析器，不可读内容也不会被当成已经掌握的材料。详见 [文件处理规则](skills/exam-prep/references/ingestion.md)。
+
 <a id="workflow"></a>
 
-## 从材料到成品，分六步完成
+## 资料如何变成复习题
 
 | 阶段 | 助手做什么 | 留下什么依据 |
 | --- | --- | --- |
@@ -194,7 +195,7 @@ exam-prep-output/<课程名>-<时间>/
 └── source/
 ```
 
-清点文件（只生成清单，不读取语义）：
+从仓库根目录运行以下可选命令。第一条按文件路径和内容哈希建立清单，文件的初始状态为 `pending`。
 
 ```bash
 python skills/exam-prep/scripts/inventory.py examples/mini-course/materials --output exam-prep-output/sources.json
@@ -216,33 +217,19 @@ python skills/exam-prep/scripts/build_pdf.py examples/mini-course/preview/knowle
 
 <a id="quality"></a>
 
-## 一份能用的复习材料，应当经得起这些检查
+## 怎样核对结果
 
 | 检查 | 具体要求 |
 | --- | --- |
-| **回得去** | 重要结论能定位到文件与页、节或题号；外部补充单独标明 |
-| **说得准** | 公式有条件，概念有边界，模糊 OCR 有待确认标记 |
-| **数得清** | 同卷副本合并，残卷不当作完整样本，频次有明确分母 |
-| **做得出** | 新题先完整求解；步骤分、小问分与全卷总分一致 |
-| **看得懂** | 中文和公式清晰，长题分页合理，题面与答案分开 |
+| **来源** | 重要结论能定位到文件与页、节或题号；外部补充单独标明 |
+| **概念与公式** | 公式有条件，概念有边界，模糊 OCR 有待确认标记 |
+| **真题统计** | 同卷副本合并，残卷不当作完整样本，频次有明确分母 |
+| **试题与评分** | 新题先完整求解；步骤分、小问分与全卷总分一致 |
+| **排版** | 中文和公式清晰，长题分页合理，题面与答案分开 |
 
 例如，“某考点出现在 3/4 份可评估试卷”是可回查的统计；“今年必考”不是它能够给出的结论。行列式为零时，还需要判断方程组是否相容，不能省略条件直接写成“无解”。这些要求已写进技能的执行规则。
 
 核心规则：[SKILL.md](skills/exam-prep/SKILL.md) · [学习设计](skills/exam-prep/references/study-design.md) · [命题与核验](skills/exam-prep/references/assessment.md) · [PDF 排版](skills/exam-prep/references/pdf-delivery.md)
-
-<a id="formats"></a>
-
-## 你可以交给它哪些资料
-
-| 材料 | 处理方式 | 依赖或注意事项 |
-| --- | --- | --- |
-| PDF、扫描卷、照片、手写笔记 | 文字提取、视觉识别或 OCR | 公式、负号、上下标和图表须核对 |
-| Word、PPT、Excel | 结构解析，必要时转换副本 | 兼顾备注、嵌入图、公式和单元格 |
-| Markdown、TXT、HTML、CSV、代码 | 按编码和结构读取 | 保留章节、行号与表格语义 |
-| 音频、视频 | 转录并关联时间戳、画面 | 需要环境中可用的转录与视频工具 |
-| 压缩包、EPUB、未知格式 | 检查、分类，选择可用解析器 | 加密、损坏或不支持时列入未读清单 |
-
-可以接收混合格式；每种格式是否能可靠解析，取决于宿主能力。安装技能不会安装所有解析器，不可读内容也不会被当成已经掌握的材料。详见 [文件处理规则](skills/exam-prep/references/ingestion.md)。
 
 <a id="faq"></a>
 
